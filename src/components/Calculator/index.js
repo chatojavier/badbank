@@ -27,18 +27,18 @@ const Calculator = ({ acceptHandler }) => {
 		} else if (!validate(newAmount) && newAmount === "-") {
 			setStatus("Only positive numbers allowed");
 			newAmount = newAmount.slice(0, -1);
+		} else if (!isDeposit && newAmount > balance) {
+			setStatus("The amount should be less than your balance");
+			newAmount = newAmount.slice(0, -1);
+		} else if (newAmount <= 0 || newAmount === false) {
+			setSubmitDisabled(true);
+			setCalcAmount("");
 		} else {
 			setStatus("");
 			setCalcAmount(newAmount);
-		}
-		if (newAmount <= 0 || newAmount === false) {
-			setSubmitDisabled(true);
-		} else if (!isDeposit && newAmount > balance) {
-			setSubmitDisabled(true);
-			setStatus("The amount should be less than your balance");
-		} else {
 			setSubmitDisabled(false);
 		}
+		console.log(newAmount);
 	};
 
 	const onClickNumber = (event) => {
@@ -46,13 +46,18 @@ const Calculator = ({ acceptHandler }) => {
 		let newAmount =
 			Number(calcAmount) === 0 ? numValue : calcAmount + numValue;
 		numValue === "Clear" && (newAmount = "");
-		console.log(newAmount);
-		validate(newAmount) && setCalcAmount(newAmount);
-		if (newAmount <= 0 || (!isDeposit && newAmount > balance)) {
+		if (!isDeposit && newAmount > balance) {
+			setStatus("The amount should be less than your balance");
+			newAmount = newAmount.slice(0, -1);
+		} else if (newAmount <= 0 || newAmount === false) {
 			setSubmitDisabled(true);
+			setCalcAmount("");
 		} else {
+			setStatus("");
+			setCalcAmount(newAmount);
 			setSubmitDisabled(false);
 		}
+		console.log(newAmount);
 		event.preventDefault();
 	};
 
