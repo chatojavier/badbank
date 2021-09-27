@@ -1,105 +1,221 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+
+const linksTools = [
+	{
+		path: "balance",
+		label: "Balance",
+		svg: (
+			<svg
+				className='w-5 h-5'
+				fill='currentColor'
+				xmlns='http://www.w3.org/2000/svg'
+				viewBox='0 0 20 20'>
+				<path d='M19.46,8.7h0L11.3.54a1.83,1.83,0,0,0-2.6,0h0L.55,8.69h0a1.84,1.84,0,0,0,1.22,3.14h.39v6A2.15,2.15,0,0,0,4.3,20H7.49a.59.59,0,0,0,.59-.59v-4.7a1,1,0,0,1,1-1h1.88a1,1,0,0,1,1,1v4.7a.59.59,0,0,0,.59.59H15.7a2.16,2.16,0,0,0,2.16-2.15v-6h.3a1.84,1.84,0,0,0,1.3-3.14Zm-.83,1.77a.67.67,0,0,1-.47.2h-.89a.59.59,0,0,0-.59.59v6.59a1,1,0,0,1-1,1H13.1V14.71a2.17,2.17,0,0,0-2.16-2.16H9.06A2.16,2.16,0,0,0,6.9,14.71v4.12H4.3a1,1,0,0,1-1-1V11.26a.59.59,0,0,0-.59-.59h-.9A.68.68,0,0,1,1.17,10a.72.72,0,0,1,.2-.46h0L9.53,1.37a.66.66,0,0,1,.94,0h0l8.16,8.15h0A.66.66,0,0,1,18.63,10.47Z' />
+			</svg>
+		),
+	},
+	{
+		path: "deposit",
+		label: "Deposit",
+		svg: (
+			<svg
+				className='w-5 h-5'
+				fill='currentColor'
+				stroke='currentColor'
+				viewBox='0 0 512 512'
+				xmlns='http://www.w3.org/2000/svg'>
+				<path d='M469,228.4c-22.8-20-57-20-79.8,2.9l-79.8,79.8V54.5C309.4,26,286.6.3,258.1.3c-31.4-2.9-57,22.8-57,54.2V311.1l-79.8-79.8c-22.8-22.8-62.7-22.8-82.7,0s-20,57,2.9,79.8L226.8,499.3c17.1,17.1,42.8,17.1,57,0L469,311.1C494.6,288.3,494.6,251.2,469,228.4Zm-14.3,68.4L269.4,482.1c-8.6,8.6-20,8.6-28.5,0L55.6,296.8c-17.1-14.3-14.3-39.9,2.9-54.2,5.7-2.9,11.4-5.7,17.1-5.7,11.4,0,22.8,2.9,28.5,11.4l99.8,99.8c2.9,2.9,8.6,2.9,11.4,2.9,2.9-2.9,5.7-5.7,5.7-11.4V54.5c0-17.1,14.3-31.4,31.4-34.2,20,0,34.2,14.3,34.2,31.4V336.8c0,5.7,2.9,8.6,5.7,11.4s8.6,0,11.4-2.9l99.8-99.8a36.24,36.24,0,1,1,51.2,51.3Z' />
+			</svg>
+		),
+	},
+	{
+		path: "withdraw",
+		label: "Withdraw",
+		svg: (
+			<svg
+				className='w-5 h-5 transform rotate-180'
+				fill='currentColor'
+				stroke='currentColor'
+				viewBox='0 0 512 512'
+				xmlns='http://www.w3.org/2000/svg'>
+				<path d='M469,228.4c-22.8-20-57-20-79.8,2.9l-79.8,79.8V54.5C309.4,26,286.6.3,258.1.3c-31.4-2.9-57,22.8-57,54.2V311.1l-79.8-79.8c-22.8-22.8-62.7-22.8-82.7,0s-20,57,2.9,79.8L226.8,499.3c17.1,17.1,42.8,17.1,57,0L469,311.1C494.6,288.3,494.6,251.2,469,228.4Zm-14.3,68.4L269.4,482.1c-8.6,8.6-20,8.6-28.5,0L55.6,296.8c-17.1-14.3-14.3-39.9,2.9-54.2,5.7-2.9,11.4-5.7,17.1-5.7,11.4,0,22.8,2.9,28.5,11.4l99.8,99.8c2.9,2.9,8.6,2.9,11.4,2.9,2.9-2.9,5.7-5.7,5.7-11.4V54.5c0-17.1,14.3-31.4,31.4-34.2,20,0,34.2,14.3,34.2,31.4V336.8c0,5.7,2.9,8.6,5.7,11.4s8.6,0,11.4-2.9l99.8-99.8a36.24,36.24,0,1,1,51.2,51.3Z' />
+			</svg>
+		),
+	},
+	{
+		path: "alldata",
+		label: "All Data",
+		svg: (
+			<svg
+				className='w-5 h-5'
+				fill='currentColor'
+				stroke='currentColor'
+				viewBox='0 0 512 512'
+				xmlns='http://www.w3.org/2000/svg'>
+				<path d='M441.24,137.66,306.55,3a10.15,10.15,0,0,0-7.16-3H109.6A41.85,41.85,0,0,0,67.8,41.8V470.2A41.85,41.85,0,0,0,109.6,512H402.4a41.85,41.85,0,0,0,41.8-41.8V144.81A10.09,10.09,0,0,0,441.24,137.66ZM309.51,34.55,409.65,134.69H331.07a21.58,21.58,0,0,1-21.56-21.56V34.55ZM424,470.2a21.58,21.58,0,0,1-21.56,21.56H109.6A21.58,21.58,0,0,1,88,470.2V41.8A21.58,21.58,0,0,1,109.6,20.24H289.27v92.89a41.85,41.85,0,0,0,41.8,41.8H424Z' />
+				<path d='M337,257H175.05a10.12,10.12,0,0,0,0,20.24H337A10.12,10.12,0,0,0,337,257Z' />
+				<path d='M337,302.21H175.05a10.12,10.12,0,0,0,0,20.24H337a10.12,10.12,0,0,0,0-20.24Z' />
+				<path d='M337,347.4H175.05a10.12,10.12,0,1,0,0,20.24H337a10.12,10.12,0,1,0,0-20.24Z' />
+				<path d='M284.33,392.6H175.05a10.12,10.12,0,0,0,0,20.24H284.33a10.12,10.12,0,1,0,0-20.24Z' />
+			</svg>
+		),
+	},
+];
+
+const linkProfile = {
+	path: "profile",
+	label: "Profile",
+	svg: (
+		<svg
+			className='w-5 h-5'
+			fill='none'
+			stroke='currentColor'
+			viewBox='0 0 24 24'
+			xmlns='http://www.w3.org/2000/svg'>
+			<path
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				strokeWidth='2'
+				d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'></path>
+		</svg>
+	),
+};
+
+const addAccount = {
+	path: "createaccount",
+	label: "Add an account",
+	svg: (
+		<svg
+			className='w-5 h-5'
+			fill='currentColor'
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 512 512'>
+			<path
+				d='M420.57,0H91.43A91.54,91.54,0,0,0,0,91.43V420.57A91.54,91.54,0,0,0,91.43,512H420.57A91.54,91.54,0,0,0,512,420.57V91.43A91.54,91.54,0,0,0,420.57,0Zm54.86,420.57a54.86,54.86,0,0,1-54.86,54.86H91.43a54.86,54.86,0,0,1-54.86-54.86V91.43A54.86,54.86,0,0,1,91.43,36.57H420.57a54.86,54.86,0,0,1,54.86,54.86Z'
+				transform='translate(0 0)'
+			/>
+			<path
+				d='M347.43,237.71H274.29V164.57a18.29,18.29,0,0,0-36.58,0v73.14H164.57a18.29,18.29,0,0,0,0,36.58h73.14v73.14a18.29,18.29,0,0,0,36.58,0V274.29h73.14a18.29,18.29,0,0,0,0-36.58Z'
+				transform='translate(0 0)'
+			/>
+		</svg>
+	),
+};
+
+const logoutData = {
+	label: "Logout",
+	svg: (
+		<svg
+			className='w-5 h-5'
+			fill='none'
+			stroke='currentColor'
+			viewBox='0 0 24 24'
+			xmlns='http://www.w3.org/2000/svg'>
+			<path
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				strokeWidth='2'
+				d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1'></path>
+		</svg>
+	),
+};
+
+const NavSideButtonLink = ({ path, label, svg }) => {
+	return (
+		<Link
+			to={path && `/${path}`}
+			className={`relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent ${
+				window.location.hash === `#/${path}`
+					? "border-blue text-black pr-6 cursor-default"
+					: "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+			}`}>
+			<span className='inline-flex justify-center items-center ml-4'>
+				{svg}
+			</span>
+			<span className='mx-4 text-sm tracking-wide truncate opacity-0 group-hover:opacity-100'>
+				{label}
+			</span>
+		</Link>
+	);
+};
+
+const NavSideButtonAction = ({ label, svg, action }) => {
+	return (
+		<button
+			className='relative w-full flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+			onClick={action}>
+			<span className='inline-flex justify-center items-center ml-4'>
+				{svg}
+			</span>
+			<span className='mx-4 text-sm tracking-wide truncate opacity-0 group-hover:opacity-100'>
+				{label}
+			</span>
+		</button>
+	);
+};
+
 const NavSide = () => {
-    return (
-        <div className="flex flex-col top-0 left-0 w-64 bg-white bg-opacity-70 h-full border-r">
-            <div className="overflow-y-auto overflow-x-hidden flex-grow">
-                <ul className="flex flex-col py-4 space-y-1">
-                    <li className="px-5">
-                        <div className="flex flex-row items-center h-8">
-                            <div className="text-sm font-light tracking-wide text-gray-500">Menu</div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Inbox</span>
-                            <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">New</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Messages</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Notifications</span>
-                            <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>
-                        </a>
-                    </li>
-                    <li className="px-5">
-                        <div className="flex flex-row items-center h-8">
-                            <div className="text-sm font-light tracking-wide text-gray-500">Tasks</div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Available Tasks</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Clients</span>
-                            <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">15</span>
-                        </a>
-                    </li>
-                    <li className="px-5">
-                        <div className="flex flex-row items-center h-8">
-                            <div className="text-sm font-light tracking-wide text-gray-500">Settings</div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                            <span className="inline-flex justify-center items-center ml-4">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                            </span>
-                            <span className="ml-2 text-sm tracking-wide truncate">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    )
-}
+	const { userValues, setUserValues, isLogged, setIsLogged } =
+		useContext(UserContext);
+
+	const handleLogout = () => {
+		const newUserValues = { ...userValues };
+		newUserValues.users[newUserValues.userIndex].loggedin = false;
+		newUserValues.userIndex = null;
+		setUserValues(newUserValues);
+		setIsLogged(false);
+		setTimeout(function () {
+			window.location.hash = "#/";
+		}, 500);
+	};
+
+	return (
+		<div className='flex flex-col top-0 left-0 bg-white bg-opacity-60 backdrop-filter backdrop-blur h-full border-r hover:w-full w-16 transition-all group'>
+			<div className='overflow-y-auto overflow-x-hidden flex-grow'>
+				<ul className='flex flex-col py-4 space-y-1'>
+					{linksTools.map(({ path, label, svg }) => {
+						return (
+							<li key={path}>
+								<NavSideButtonLink
+									path={path}
+									label={label}
+									svg={svg}
+								/>
+							</li>
+						);
+					})}
+					<li className='px-5' key='separator'>
+						<div className='flex flex-row items-center h-8'>
+							<div className=' h-0.5 w-full rounded-full bg-gray-300 '></div>
+						</div>
+					</li>
+					{/* <li key='profile'>
+						<NavSideButtonLink
+							path={linkProfile.path}
+							label={linkProfile.label}
+							svg={linkProfile.svg}
+						/>
+					</li> */}
+					<li key={addAccount.path}>
+						<NavSideButtonLink
+							path={addAccount.path}
+							label={addAccount.label}
+							svg={addAccount.svg}
+						/>
+					</li>
+					<li key='logout'>
+						<NavSideButtonAction
+							label={logoutData.label}
+							svg={logoutData.svg}
+							action={handleLogout}
+						/>
+					</li>
+				</ul>
+			</div>
+		</div>
+	);
+};
 
 export default NavSide;

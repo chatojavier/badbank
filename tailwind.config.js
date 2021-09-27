@@ -1,7 +1,23 @@
 module.exports = {
 	purge: {
 		content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-		safelist: [],
+		safelist: [
+			"col-span-3",
+			"from-red",
+			"to-red-dark",
+			"from-green",
+			"to-green-dark",
+			"from-gray",
+			"to-gray-dark",
+			"border-green",
+			"text-green",
+			"border-gray",
+			"text-gray",
+			"from-green-600",
+			"from-red-600",
+			"to-green-700",
+			"to-red-700",
+		],
 	},
 	darkMode: false, // or 'media' or 'class'
 	theme: {
@@ -21,11 +37,11 @@ module.exports = {
 				green: { DEFAULT: "#22E96F", dark: "#1DA853" },
 			},
 			zIndex: {
-				'-10': '-10',
+				"-10": "-10",
 			},
 			fontFamily: {
-				'brand': ['"Days One"', 'sans-serif']
-			}
+				brand: ['"Days One"', "sans-serif"],
+			},
 		},
 	},
 	variants: {
@@ -33,6 +49,7 @@ module.exports = {
 			backgroundColor: ["active"],
 			backgroundImage: ["active"],
 			textColor: ["active"],
+			width: ["hover"],
 		},
 	},
 	plugins: [],
