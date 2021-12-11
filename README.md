@@ -1,28 +1,38 @@
-# Route and Context React Exercise
+# BadBank. Fullstack MERN Project
 
 <img src="./screenshot.png" />
 
 This is a proyect for the MIT xPro Professional Certificate in Coding.
 
-The objetive of this exercise was lern how to use the React context, and hash route.
+## Description
 
-## Usage
+This is my fisrt complete three tier web app, fullstack developed with the MERN stack. The frontend was developed with React js as framework. In the backend could find the API server developed with NodeJS and Express, and the database in MongoDB.
 
-This was one of the ReactJS projects developed for the fullstack MITxPro program. In this case, I created a Bank webpage where you could create an account and loggin (just in the frontend).
+This project tries to imitate the basic operations of a bank, such as deposit, withdrawal and balance. It was named BadBank because at first it was just a frontend project, so it didn't have any kind of security system. Now it have authentication for both the backend and frontend using the Firebase authentication tool.
 
-You could see this app working in this link: https://jbdigital.online/badbank/
+## Instalation for development
 
-## Instalation
+If you want to use this code, please follow the following steps:
 
-If you want to use this code, download or clone this repository, and write in your terminal (in this proyect root)one of the folowing codes:
-
-### For development
-
-npm run start
+-   Download or clone this repository.
+-   Install Docker for desktop (to implement MongoDB).
+-   Start a container with MongoDB Image (docker run -d -p 27017:27017 mongo)
+-   Download and install NodeJS in your machine.
+-   Create an account and project in Firebase to get your own private keys. (https://firebase.google.com)
+-   Go to the backend folder in the terminal.
+-   Install Node modules writing in terminal: $ npm install
+-   Strat the server writing in terminal: $ npm start
+-   Go to the frontend folder in the terminal.
+-   Install Node modules writing in terminal: $ yarn install
+-   Strat the developer frontend server writing in terminal: $ yarn start
+-   Now you can edit the frontend and backend.
 
 ### For Production
 
-npm run build
+For production follow the same steps as before, exept the frontend start.
+
+-   Go to the frontend folder in the terminal.
+-   To build your production project write in terminal: $ yarn build
 
 ## Support
 
