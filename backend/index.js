@@ -14,6 +14,7 @@ app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
 
+// React Routes
 app.get(
 	['/balance', '/login', '/deposit', '/withdraw', '/alldata'],
 	(req, res) => {
@@ -21,6 +22,11 @@ app.get(
 		res.sendFile(path.resolve('public', 'index.html'));
 	}
 );
+
+// 404 React route
+app.all('*', (req, res) => {
+	res.status(404).sendFile(path.resolve('public', 'index.html'));
+});
 
 // withdraw
 app.patch('/init', (req, res) => {

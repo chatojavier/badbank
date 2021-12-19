@@ -9,6 +9,7 @@ import Deposit from './pages/Deposit';
 import Withdraw from './pages/Withdraw';
 import Balance from './pages/Balance';
 import AllData from './pages/AllData';
+import Page404 from './pages/Page404';
 import NavBar from './components/NavBar';
 import RequireAuth from './components/RequireAuth';
 import UpdateUserValues from './components/UpdateUserValues';
@@ -78,6 +79,7 @@ function App() {
 							}
 						/>
 						<Route path='/AllData/' element={<AllData />} />
+						<Route path='*' element={<Page404 />} />
 					</Routes>
 				</UserPersistence>
 			</UserContext.Provider>
