@@ -3,14 +3,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const dal = require('./dal');
-const { ObjectId } = require('bson');
 const admin = require('./admin');
 const path = require('path');
 
 console.log(`NODE_ENV=${config.NODE_ENV}`);
 
-// used to serve statics files from public directory
-app.use(express.static('public'));
+// used to serve statics files from ./frontend/build directory
+app.use(express.static('./frontend/build'));
 app.use(cors());
 app.use(express.json());
 
@@ -19,14 +18,9 @@ app.get(
 	['/balance', '/login', '/deposit', '/withdraw', '/alldata'],
 	(req, res) => {
 		console.log('sending index.html');
-		res.sendFile(path.resolve('public', 'index.html'));
+		res.sendFile(path.resolve('./frontend/build', 'index.html'));
 	}
 );
-
-// 404 React route
-app.all('*', (req, res) => {
-	res.status(404).sendFile(path.resolve('public', 'index.html'));
-});
 
 // withdraw
 app.patch('/init', (req, res) => {
@@ -180,6 +174,11 @@ app.patch('/account/withdraw', (req, res) => {
 			console.error('error: ', err);
 			res.send('Error updating withdraw values');
 		});
+});
+
+// 404 React route
+app.all('*', (req, res) => {
+	res.status(404).sendFile(path.resolve('./frontend/build', 'index.html'));
 });
 
 app.listen(config.PORT, config.HOST, function () {
