@@ -22,13 +22,10 @@ const useUrlApi = (initialUrl, initialData) => {
 
 	useEffect(() => {
 		let didCancel = false;
-		let isLoaded = false;
 		const fetchData = async () => {
 			dispatch({ type: 'FETCH_INIT' });
 			try {
 				const result = await fetch(url);
-				const imgResult = await loadImg(result.url);
-				isLoaded = true;
 				!didCancel &&
 					dispatch({ type: 'FETCH_SUCCESS', payload: result.url });
 			} catch (error) {

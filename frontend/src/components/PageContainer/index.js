@@ -4,7 +4,7 @@ import errorImg from '../../assets/david-ress-lvowu4IK6Mc-unsplash.jpg';
 import PageContent from '../PageContent';
 
 const PageContainer = ({ children }) => {
-	const [imgState, setNewUrl] = useUrlApi(
+	const [imgState] = useUrlApi(
 		'https://source.unsplash.com/1920x1080/?architecture',
 		''
 	);
@@ -16,13 +16,14 @@ const PageContainer = ({ children }) => {
 				) : (
 					<img
 						src={imgState.data}
-						alt='Architecture Image'
+						alt='Architecture'
 						className='absolute h-full w-full top-0 object-cover z-0'
 					/>
 				)}
 				{imgState.isError && (
 					<img
 						src={errorImg}
+						alt='Error'
 						className='absolute h-full w-full top-0 object-cover z-0'></img>
 				)}
 				{(window.location.hash === '#/' || !window.location.hash) && (

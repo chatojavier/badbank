@@ -1,11 +1,11 @@
-import RoundedButton from "../RoundedButton";
+import RoundedButton from '../RoundedButton';
 
 const FormLogin = ({ inputs, submit, useAlert }) => {
 	const [status, setStatus] = useAlert;
 
 	const handleInputChange = (input, value) => {
 		input.setState(value);
-		setStatus("");
+		setStatus('');
 	};
 
 	const elInputs = inputs.map((input) => (
@@ -40,7 +40,7 @@ const FormLogin = ({ inputs, submit, useAlert }) => {
 					</label>
 				</div>
 				<div className='text-sm'>
-					<a href='' className='text-blue-dark hover:underline'>
+					<a href='/login' className='text-blue-dark hover:underline'>
 						Forgot your password?
 					</a>
 				</div>

@@ -49,8 +49,10 @@ const Login = () => {
 	let from = location.state?.from?.pathname || '/balance';
 
 	useEffect(() => {
-		if (isLogged) {
-			navigate('/balance');
+		const newIsLogged = isLogged;
+		const newNavigate = navigate;
+		if (newIsLogged) {
+			newNavigate('/balance');
 		}
 	}, []);
 

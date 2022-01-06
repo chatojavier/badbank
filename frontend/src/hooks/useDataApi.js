@@ -205,5 +205,6 @@ export {
 	useGetDataApi,
 	usePostDataApi,
 	useUpdateDataApi,
+	useAuthGetDataApi,
 	useAuthUpdateDataApi,
 };
