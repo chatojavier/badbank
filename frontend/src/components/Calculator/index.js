@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { auth } from '../../firebase-config';
 import { useAuthUpdateDataApi } from '../../hooks/useDataApi';
+import NumberScreen from './NumberScreen';
+import NumberButton from './NumberButton';
 
 const Calculator = ({ acceptHandler }) => {
 	const [calcAmount, setCalcAmount] = useState('');
@@ -21,7 +23,7 @@ const Calculator = ({ acceptHandler }) => {
 		});
 
 	function validate(s) {
-		var rgx = /^[0-9]*\.?[0-9]*$/;
+		const rgx = /^[0-9]*\.?[0-9]*$/;
 		const isValid = Boolean(s.match(rgx));
 		return isValid;
 	}
@@ -162,50 +164,5 @@ const Calculator = ({ acceptHandler }) => {
 		</div>
 	);
 };
-
-function NumberScreen({ value, onChange, alert }) {
-	return (
-		<div className='relative'>
-			<input
-				pattern='^[0-9]{1,2}([,.][0-9]{1,2})?$'
-				placeholder='0'
-				step='0.01'
-				className='number-screen w-full p-4 shadow-inner flex justify-between font-bold text-xl rounded-xl text-right | focus:outline-none focus:ring focus:ring-blue focus:ring-opacity-50'
-				value={value}
-				step='.01'
-				onChange={onChange}></input>
-			<div className='alert-msg absolute top-0 text-red text-xs m-2'>
-				{alert}
-			</div>
-		</div>
-	);
-}
-
-function NumberButton({
-	value,
-	color,
-	onClickNumber,
-	colSpan,
-	onClickAccept,
-	submitDisabled,
-}) {
-	return (
-		<button
-			className={
-				'number-button p-3 font-bold text-xl rounded-xl border border-solid text-center bg-white bg-opacity-70 active:bg-gradient-to-br active:text-white' +
-				(submitDisabled
-					? ' opacity-30 cursor-default'
-					: ' hover:shadow') +
-				(colSpan ? ` col-span-${colSpan}` : '') +
-				(color
-					? ` border-${color} text-${color} from-${color} to-${color}-dark`
-					: ' border-blue text-blue from-blue to-blue-dark')
-			}
-			onClick={onClickAccept ? onClickAccept : onClickNumber}
-			disabled={submitDisabled}>
-			{value}
-		</button>
-	);
-}
 
 export default Calculator;

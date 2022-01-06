@@ -7,7 +7,6 @@ import { firebasekeys } from './firebaseKeys';
 
 // Your web app's Firebase configuration
 const firebaseConfig = firebasekeys;
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

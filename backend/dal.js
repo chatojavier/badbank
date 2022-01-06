@@ -74,4 +74,25 @@ function updateUser(filter, updateData) {
 	});
 }
 
-module.exports = { create, allUsers, getUser, loginAccount, updateUser };
+// test db connection
+function testConnection() {
+	return new Promise((resolve, reject) => {
+		try {
+			const response = db.command({ ping: 1 });
+			console.log('res: ', response);
+			resolve(response);
+		} catch (error) {
+			console.error('DB error: ', error.message);
+			reject(error);
+		}
+	});
+}
+
+module.exports = {
+	create,
+	allUsers,
+	getUser,
+	loginAccount,
+	updateUser,
+	testConnection,
+};

@@ -5,10 +5,7 @@ import { useGetDataApi } from '../../hooks/useDataApi';
 import loadingIcon from '../../assets/loading200px.svg';
 
 const AllData = () => {
-	const url =
-		process.env.NODE_ENV === 'development'
-			? 'http://localhost:3000/account/all'
-			: '/account/all';
+	const url = '/account/all';
 	const [dataUser] = useGetDataApi(url, []);
 
 	const cols = [
@@ -38,7 +35,6 @@ const AllData = () => {
 		},
 	];
 	const data = dataUser.data;
-	console.log('data', data);
 	return (
 		<PageContainer>
 			<Card title='All Data' compClass='w-full' blur={true}>

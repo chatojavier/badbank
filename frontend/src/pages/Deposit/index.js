@@ -6,31 +6,10 @@ import Calculator from '../../components/Calculator';
 import Block from '../../components/Block';
 import currencyFormat from '../../helpers/currencyFormat';
 import RoundedButton from '../../components/RoundedButton';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase-config';
-import axios from 'axios';
 
 const Deposit = () => {
-	const { userValues, setUserValues, setIsLogged } = useContext(UserContext);
+	const { userValues } = useContext(UserContext);
 	const [showCal, setShowCal] = useState(true);
-
-	useEffect(() => {
-		onAuthStateChanged(auth, async (user) => {
-			if (user) {
-				setIsLogged(true);
-				const idToken = await user.getIdToken();
-				const url = String(process.env.REACT_APP_USER_API + user.uid);
-				const headers = { Authorization: idToken };
-				const result = await axios.get(url, { headers });
-				console.log(result);
-				setUserValues(result.data);
-			} else {
-				console.log('not logged user');
-				setIsLogged(false);
-				window.location.hash = '#/login';
-			}
-		});
-	}, []);
 
 	const acceptHandler = () => {
 		setShowCal(false);

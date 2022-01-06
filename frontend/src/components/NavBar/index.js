@@ -13,7 +13,7 @@ const NavBar = ({ burgerOpen }) => {
 	return (
 		<nav className='navbar shadow bg-white bg-opacity-60 backdrop-filter backdrop-blur z-20 rounded-b-2xl'>
 			<div className='mx-auto p-4 flex justify-between items-center'>
-				<Link to='/'>
+				<Link to='/' aria-label='home_link'>
 					<img
 						src={Logo}
 						srcSet={`${Logo2x} 2x`}

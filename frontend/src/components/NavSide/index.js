@@ -129,10 +129,11 @@ const NavSideButtonLink = ({ path, label, svg }) => {
 		<Link
 			to={path && `/${path}`}
 			className={`relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent ${
-				window.location.hash === `#/${path}`
+				window.location.pathname === `/${path}`
 					? 'border-blue text-black pr-6 cursor-default'
 					: 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
-			}`}>
+			}`}
+			aria-label={`${path}_link`}>
 			<span className='inline-flex justify-center items-center ml-4'>
 				{svg}
 			</span>

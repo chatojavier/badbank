@@ -5,13 +5,9 @@ import Block from '../../components/Block';
 import BarPercent from '../../components/BarPercent';
 import { UserContext } from '../../contexts/UserContext';
 import currencyFormat from '../../helpers/currencyFormat';
-import RoundedButton from '../../components/RoundedButton';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase-config';
-import axios from 'axios';
 
 const Balance = () => {
-	const { userValues, setIsLogged, setUserValues } = useContext(UserContext);
+	const { userValues } = useContext(UserContext);
 
 	return (
 		<PageContainer>

@@ -5,6 +5,7 @@ const cors = require('cors');
 const dal = require('./dal');
 const admin = require('./admin');
 const path = require('path');
+const { send } = require('process');
 
 console.log(`NODE_ENV=${config.NODE_ENV}`);
 
@@ -173,6 +174,19 @@ app.patch('/account/withdraw', (req, res) => {
 		.catch((err) => {
 			console.error('error: ', err);
 			res.send('Error updating withdraw values');
+		});
+});
+
+// Test Connection
+app.get('/testconnection', (req, res) => {
+	dal.testConnection()
+		.then((test) => {
+			res.send(test);
+			console.log('Connection OK');
+		})
+		.catch((err) => {
+			console.error('Connection error');
+			res.send(false);
 		});
 });
 

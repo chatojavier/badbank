@@ -13,7 +13,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [showForm, setShowForm] = useState(true);
 	const [status, setStatus] = useState('');
-	const { setUserValues, setIsLogged } = useContext(UserContext);
+	const { isLogged, setUserValues, setIsLogged } = useContext(UserContext);
 	const [connectState, setConnectState] = useState({
 		isLoading: false,
 		isError: false,
@@ -47,6 +47,12 @@ const Login = () => {
 	let navigate = useNavigate();
 	let location = useLocation();
 	let from = location.state?.from?.pathname || '/balance';
+
+	useEffect(() => {
+		if (isLogged) {
+			navigate('/balance');
+		}
+	}, []);
 
 	const handleLogin = async () => {
 		if (!validate(email)) return;
