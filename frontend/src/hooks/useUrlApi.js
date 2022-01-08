@@ -11,15 +11,6 @@ const useUrlApi = (initialUrl, initialData) => {
 		data: initialData,
 	});
 
-	//load img function promise
-	const loadImg = async (src) =>
-		new Promise((resolve, reject) => {
-			const img = new Image();
-			img.src = src;
-			img.onload = resolve;
-			img.onerror = reject;
-		});
-
 	useEffect(() => {
 		let didCancel = false;
 		const fetchData = async () => {

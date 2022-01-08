@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "nodemon backend/index.js",
 		"test": "jest",
-		"build": "cd frontend && npm run build",
+		"build": "CI=false && cd frontend && npm run build",
 		"server": "node backend/index.js"
 	},
 	"keywords": [],
