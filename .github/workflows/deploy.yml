@@ -23,15 +23,11 @@ jobs:
                           cd badbank
                           git clone git@github.com:chatojavier/badbank.git
                           cd badbank
-                          cd frontend/ && npm install
-                          npm run build --if-present
                           docker-compose up
                           echo "Deployment succesfull to Digital Ocean"
                       else
                           cd badbank/badbank
                           git pull
-                          cd frontend/ && npm install
-                          npm run build --if-present
                           docker-compose pull badbank-app
                           docker-compose up --detach
                           echo "Deployment succesfull to Digital Ocean"
