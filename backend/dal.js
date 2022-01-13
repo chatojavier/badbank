@@ -1,13 +1,18 @@
+require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
+const url = process.env.MONGO_URI || 'mongodb://localhost:27017';
 let db = null;
 
 // connect to MongoDB
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-	console.log('Connected successfully to db server');
+	if (err) {
+		throw err;
+	} else {
+		console.log('Connected successfully to db server');
 
-	// connect to my project db
-	db = client.db('myproject');
+		// connect to my project db
+		db = client.db('myproject');
+	}
 });
 
 // create user account

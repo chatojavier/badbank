@@ -7,7 +7,7 @@
 		"start": "nodemon backend/index.js",
 		"test": "jest",
 		"build": "CI=false && cd frontend && npm run build",
-		"server": "node backend/index.js"
+		"server": "PORT=3000 node backend/index.js"
 	},
 	"keywords": [],
 	"author": "",

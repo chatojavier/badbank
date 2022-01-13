@@ -11,7 +11,7 @@ const PageContainer = ({ children }) => {
 	return (
 		<>
 			<div className='page-container bg-no-repeat bg-center w-full absolute top-0 -z-10 flex justify-center items-center h-full'>
-				{imgState.isLoading && !imgState.isError ? (
+				{imgState.isLoading ? (
 					<img src={loadingIcon} alt='Loading' className='w-12' />
 				) : (
 					<img
