@@ -22,10 +22,11 @@ jobs:
                           mkdir badbank
                           cd badbank
                           git clone git@github.com:chatojavier/badbank.git
+                          cd badbank
                           docker-compose up
                           echo "Deployment succesfull to Digital Ocean"
                       else
-                          cd badbank
+                          cd badbank/badbank
                           git pull
                           docker-compose pull badbank-app
                           docker-compose up --detach
