@@ -26,7 +26,7 @@ jobs:
                           echo "Deployment succesfull to Digital Ocean"
                       else
                           cd badbank
-                          git pull origin main
+                          git pull
                           docker-compose pull badbank-app
                           docker-compose up --detach
                           echo "Deployment succesfull to Digital Ocean"
