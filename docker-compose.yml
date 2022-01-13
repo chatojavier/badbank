@@ -4,8 +4,8 @@ services:
         # Step 3 - Point build step to the server directory
         build: './'
         environment:
-            - MONGO_URI: mongo-badbank
-            - GOOGLE_CONFIG_BASE64: ${GOOGLE_CONFIG_BASE64}
+            - MONGO_URI=mongodb://mongo-badbank:27017
+            - GOOGLE_CONFIG_BASE64=${GOOGLE_CONFIG_BASE64}
         ports:
             # Step 4 - Add the port that the server application runs on - (port:port).
             - '3000:3000'
