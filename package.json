@@ -6,8 +6,8 @@
 	"scripts": {
 		"start": "nodemon backend/index.js",
 		"test": "jest",
-		"build": "cd frontend && npm run build",
-		"server": "node backend/index.js"
+		"build": "CI=false && cd frontend && npm run build",
+		"server": "PORT=3000 node backend/index.js"
 	},
 	"keywords": [],
 	"author": "",

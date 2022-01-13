@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import PageContainer from '../../components/PageContainer';
 import Card from '../../components/Card';
 import Block from '../../components/Block';

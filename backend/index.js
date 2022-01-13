@@ -195,6 +195,6 @@ app.all('*', (req, res) => {
 	res.status(404).sendFile(path.resolve('./frontend/build', 'index.html'));
 });
 
-app.listen(config.PORT, config.HOST, function () {
-	console.log(`App listening on http://${config.HOST}:${config.PORT}`);
+app.listen(config.PORT, function () {
+	console.log(`App listening on http://localhost:${config.PORT}`);
 });

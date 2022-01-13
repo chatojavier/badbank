@@ -11,24 +11,12 @@ const useUrlApi = (initialUrl, initialData) => {
 		data: initialData,
 	});
 
-	//load img function promise
-	const loadImg = async (src) =>
-		new Promise((resolve, reject) => {
-			const img = new Image();
-			img.src = src;
-			img.onload = resolve;
-			img.onerror = reject;
-		});
-
 	useEffect(() => {
 		let didCancel = false;
-		let isLoaded = false;
 		const fetchData = async () => {
 			dispatch({ type: 'FETCH_INIT' });
 			try {
 				const result = await fetch(url);
-				const imgResult = await loadImg(result.url);
-				isLoaded = true;
 				!didCancel &&
 					dispatch({ type: 'FETCH_SUCCESS', payload: result.url });
 			} catch (error) {

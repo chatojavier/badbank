@@ -16,11 +16,10 @@ const Calculator = ({ acceptHandler }) => {
 	const income = userValues.deposits;
 	const outcome = userValues.withdraws;
 	const isDeposit = window.location.pathname === '/deposit';
-	const [{ success, isError, isLoading, data }, setUpdateData] =
-		useAuthUpdateDataApi({
-			url: false,
-			data: { uid: auth.currentUser.uid },
-		});
+	const [updateData, setUpdateData] = useAuthUpdateDataApi({
+		url: false,
+		data: { uid: auth.currentUser.uid },
+	});
 
 	function validate(s) {
 		const rgx = /^[0-9]*\.?[0-9]*$/;
@@ -71,34 +70,34 @@ const Calculator = ({ acceptHandler }) => {
 	};
 
 	const onClickAccept = (event) => {
+		let newUserValues;
+		let url;
 		if (isDeposit) {
 			const newBalance = balance + Number(calcAmount);
 			const newIncome = income + Number(calcAmount);
 
-			const newUserValues = {
+			newUserValues = {
 				...userValues,
 				balance: newBalance,
 				deposits: newIncome,
 			};
-			const url = process.env.REACT_APP_DEPOSIT_API;
-
-			setUpdateduserValues(newUserValues);
-			setUpdateData({ url: url, data: { ...data, ...newUserValues } });
-			setSkipCount(false);
+			url = process.env.REACT_APP_DEPOSIT_API;
 		} else {
 			const newBalance = balance - Number(calcAmount);
 			const newOutcome = outcome + Number(calcAmount);
-			const newUserValues = {
+			newUserValues = {
 				...userValues,
 				balance: newBalance,
 				withdraws: newOutcome,
 			};
-			const url = process.env.REACT_APP_WITHDRAW_API;
-
-			setUpdateduserValues(newUserValues);
-			setUpdateData({ url: url, data: { ...data, ...newUserValues } });
-			setSkipCount(false);
+			url = process.env.REACT_APP_WITHDRAW_API;
 		}
+		setUpdateduserValues(newUserValues);
+		setUpdateData({
+			url: url,
+			data: { ...updateData.data, ...newUserValues },
+		});
+		setSkipCount(false);
 		event.preventDefault();
 	};
 
@@ -116,21 +115,19 @@ const Calculator = ({ acceptHandler }) => {
 	}
 
 	useEffect(() => {
-		if (skipCount) {
-			return;
+		if (!skipCount) {
+			if (updateData.success) {
+				setUserValues(updateduserValues);
+				console.log('Updated Values: ', updateduserValues);
+				setCalcAmount('');
+				setSubmitDisabled(true);
+				acceptHandler();
+			}
+			if (updateData.isError) {
+				setStatus('We had a problem with your operation.');
+			}
 		}
-		if (success) {
-			setUserValues(updateduserValues);
-			console.log('Updated Values: ', updateduserValues);
-			setCalcAmount('');
-			setSubmitDisabled(true);
-			acceptHandler();
-			setSkipCount(true);
-		}
-		if (isError) {
-			setStatus('We had a problem with your operation.');
-		}
-	}, [isLoading]);
+	}, [updateData]);
 
 	return (
 		<div className='calculator'>
